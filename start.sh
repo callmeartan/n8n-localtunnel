@@ -106,36 +106,52 @@ else
 fi
 echo ""
 
-# Stop any existing containers
-echo -e "${YELLOW}Stopping any existing n8n containers...${NC}"
-docker-compose -f "$COMPOSE_FILE" down 2>/dev/null || true
-echo ""
-
-# Start Docker Compose
-echo -e "${YELLOW}Starting n8n with Docker Compose...${NC}"
-docker-compose -f "$COMPOSE_FILE" up -d
-
-if [ $? -ne 0 ]; then
-    echo -e "${RED}Error: Failed to start Docker Compose${NC}"
-    exit 1
+# Stop any existing containers (skip if already running to save time)
+echo -e "${YELLOW}Checking existing containers...${NC}"
+if docker ps --format '{{.Names}}' | grep -q "^n8n$"; then
+    echo -e "${GREEN}✓ n8n container already running${NC}"
+    SKIP_START=true
+else
+    docker-compose -f "$COMPOSE_FILE" down 2>/dev/null || true
+    SKIP_START=false
 fi
-
-echo -e "${GREEN}✓ n8n container started${NC}"
 echo ""
 
-# Wait for n8n to be ready
+# Start Docker Compose (skip if already running)
+if [ "$SKIP_START" = "false" ]; then
+    echo -e "${YELLOW}Starting n8n with Docker Compose...${NC}"
+    docker-compose -f "$COMPOSE_FILE" up -d
+
+    if [ $? -ne 0 ]; then
+        echo -e "${RED}Error: Failed to start Docker Compose${NC}"
+        exit 1
+    fi
+
+    echo -e "${GREEN}✓ n8n container started${NC}"
+else
+    echo -e "${GREEN}✓ Using existing n8n container${NC}"
+fi
+echo ""
+
+# Wait for n8n to be ready (optimized with faster initial checks)
 echo -e "${YELLOW}Waiting for n8n to be ready...${NC}"
 MAX_ATTEMPTS=30
 ATTEMPT=0
 
 while [ $ATTEMPT -lt $MAX_ATTEMPTS ]; do
-    if curl -s http://localhost:$LOCAL_PORT > /dev/null 2>&1; then
+    if curl -s --max-time 1 http://localhost:$LOCAL_PORT > /dev/null 2>&1; then
         echo -e "${GREEN}✓ n8n is ready!${NC}"
         break
     fi
     ATTEMPT=$((ATTEMPT + 1))
-    echo -n "."
-    sleep 2
+    # Faster checks initially, then slower
+    if [ $ATTEMPT -lt 5 ]; then
+        echo -n "."
+        sleep 1
+    else
+        echo -n "."
+        sleep 2
+    fi
 done
 
 if [ $ATTEMPT -eq $MAX_ATTEMPTS ]; then
@@ -246,11 +262,16 @@ function setupTunnelHandlers(t) {
 " > /tmp/tunnel.log 2>&1 &
 TUNNEL_PID=$!
 
-# Wait for tunnel URL to be written
+# Wait for tunnel URL to be written (optimized with faster checks)
 MAX_WAIT=15
 WAIT_COUNT=0
 while [ ! -s "$TEMP_URL_FILE" ] && [ $WAIT_COUNT -lt $MAX_WAIT ]; do
-    sleep 1
+    # Check more frequently initially
+    if [ $WAIT_COUNT -lt 3 ]; then
+        sleep 0.5
+    else
+        sleep 1
+    fi
     WAIT_COUNT=$((WAIT_COUNT + 1))
 done
 
@@ -274,49 +295,28 @@ fi
 echo -e "${GREEN}✓ Tunnel created successfully!${NC}"
 echo ""
 
-# Retrieve and save localtunnel password
+# Retrieve and save localtunnel password (non-blocking - don't wait)
 echo -e "${YELLOW}Retrieving localtunnel password...${NC}"
 TUNNEL_PASSWORD=""
-MAX_PASSWORD_RETRIES=5
-RETRY_COUNT=0
 
-while [ $RETRY_COUNT -lt $MAX_PASSWORD_RETRIES ]; do
-    # Wait a bit longer on each retry
-    if [ $RETRY_COUNT -gt 0 ]; then
-        sleep $((RETRY_COUNT * 2))
-    fi
-    
-    TUNNEL_PASSWORD=$(get_tunnel_password)
-    
-    # Check if we got a valid password (not empty, not an IP address, and has reasonable length)
-    if [ -n "$TUNNEL_PASSWORD" ] && \
-       [[ ! "$TUNNEL_PASSWORD" =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$ ]] && \
-       [ ${#TUNNEL_PASSWORD} -gt 5 ]; then
-        echo "$TUNNEL_PASSWORD" > "$TUNNEL_PASSWORD_FILE"
-        chmod 600 "$TUNNEL_PASSWORD_FILE"
-        echo -e "${GREEN}✓ Localtunnel password retrieved and saved${NC}"
-        break
-    fi
-    
-    RETRY_COUNT=$((RETRY_COUNT + 1))
-    if [ $RETRY_COUNT -lt $MAX_PASSWORD_RETRIES ]; then
-        echo -n "."
-    fi
-done
+# Try once quickly, then continue in background (non-blocking)
+TUNNEL_PASSWORD=$(get_tunnel_password)
 
-if [ -z "$TUNNEL_PASSWORD" ] || \
-   [[ "$TUNNEL_PASSWORD" =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$ ]] || \
-   [ ${#TUNNEL_PASSWORD} -le 5 ]; then
-    echo ""
-    echo -e "${YELLOW}⚠ Could not retrieve localtunnel password immediately${NC}"
-    echo -e "${YELLOW}  The password may take a moment to become available.${NC}"
-    echo -e "${YELLOW}  Will continue trying in the background...${NC}"
+if [ -n "$TUNNEL_PASSWORD" ] && \
+   [[ ! "$TUNNEL_PASSWORD" =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$ ]] && \
+   [ ${#TUNNEL_PASSWORD} -gt 5 ]; then
+    echo "$TUNNEL_PASSWORD" > "$TUNNEL_PASSWORD_FILE"
+    chmod 600 "$TUNNEL_PASSWORD_FILE"
+    echo -e "${GREEN}✓ Localtunnel password retrieved and saved${NC}"
+    PASSWORD_RETRIEVER_PID=""
+else
+    echo -e "${YELLOW}⚠ Password will be retrieved in background${NC}"
     TUNNEL_PASSWORD="(retrieving...)"
     
-    # Start background process to periodically try to get the password
+    # Start background process to retrieve password (non-blocking)
     (
-        for i in {1..10}; do
-            sleep $((i * 3))
+        for i in {1..8}; do
+            sleep $((i * 2))
             PWD=$(get_tunnel_password)
             if [ -n "$PWD" ] && \
                [[ ! "$PWD" =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$ ]] && \
@@ -331,8 +331,6 @@ if [ -z "$TUNNEL_PASSWORD" ] || \
         done
     ) &
     PASSWORD_RETRIEVER_PID=$!
-else
-    PASSWORD_RETRIEVER_PID=""
 fi
 echo ""
 
