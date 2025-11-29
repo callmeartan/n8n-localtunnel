@@ -1,0 +1,31 @@
+{
+  "name": "n8n-localtunnel-setup",
+  "version": "1.0.0",
+  "description": "Easily expose your local n8n instance to the internet using localtunnel",
+  "keywords": [
+    "n8n",
+    "localtunnel",
+    "tunnel",
+    "webhook",
+    "automation",
+    "docker"
+  ],
+  "author": "",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "scripts": {
+    "start": "./start.sh",
+    "install": "npm install"
+  },
+  "dependencies": {
+    "localtunnel": "^2.0.2"
+  },
+  "engines": {
+    "node": ">=14.0.0",
+    "npm": ">=6.0.0"
+  }
+}
+

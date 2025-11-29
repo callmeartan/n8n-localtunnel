@@ -1,0 +1,20 @@
+# Dependencies
+node_modules/
+package-lock.json
+yarn.lock
+
+# Password files
+.n8n_password
+.localtunnel_password
+.tunnel_url
+
+# Backup files
+*.backup
+
+# Docker volumes (if any)
+.docker/
+
+# OS files
+.DS_Store
+Thumbs.db
+
