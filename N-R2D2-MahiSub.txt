@@ -1,0 +1,22 @@
+#profile-title: N-R2D2 Unlimited Mahi-Sub
+#profile-update-interval: 1
+#subscription-userinfo: upload=29; download=12; total=10737418240000000; expire=2546249531
+#R2D2
+# ========================================
+# 🤖 Auto-Updated VPN Configs
+# 📅 Generated: 2026-05-08 - 23:41 (Iran/Tehran)
+# ========================================
+
+vless://c83e61a5-2d48-4fa8-8032-0c57ff1e7772@image-builder.sigs.k8s.io:443?encryption=none&security=tls&sni=image-builder.sigs.k8s.io&fp=chrome&alpn=h2%2Chttp%2F1.1&insecure=1&allowInsecure=1&type=xhttp&host=artan-xhttp-relay.netlify.app&path=%2Fmypath&mode=auto&extra=%7B%22xPaddingBytes%22%3A%22100-1000%22%7D#N-R2D2%20K8s%20Image%20Builder
+vless://c83e61a5-2d48-4fa8-8032-0c57ff1e7772@kubernetes.io:443?encryption=none&security=tls&sni=kubernetes.io&fp=chrome&alpn=h2%2Chttp%2F1.1&insecure=1&allowInsecure=1&type=xhttp&host=artan-xhttp-relay.netlify.app&path=%2Fmypath&mode=auto&extra=%7B%22xPaddingBytes%22%3A%22100-1000%22%7D#N-R2D2%20Kubernetes
+vless://c83e61a5-2d48-4fa8-8032-0c57ff1e7772@scheduler-plugins.sigs.k8s.io:443?encryption=none&security=tls&sni=scheduler-plugins.sigs.k8s.io&fp=chrome&alpn=h2%2Chttp%2F1.1&insecure=1&allowInsecure=1&type=xhttp&host=artan-xhttp-relay.netlify.app&path=%2Fmypath&mode=auto&extra=%7B%22xPaddingBytes%22%3A%22100-1000%22%7D#N-R2D2%20K8s%20Scheduler
+vless://c83e61a5-2d48-4fa8-8032-0c57ff1e7772@kubectl.docs.kubernetes.io:443?encryption=none&security=tls&sni=kubectl.docs.kubernetes.io&fp=chrome&alpn=h2%2Chttp%2F1.1&insecure=1&allowInsecure=1&type=xhttp&host=artan-xhttp-relay.netlify.app&path=%2Fmypath&mode=auto&extra=%7B%22xPaddingBytes%22%3A%22100-1000%22%7D#N-R2D2%20K8s%20Kubectl
+vless://c83e61a5-2d48-4fa8-8032-0c57ff1e7772@krew.sigs.k8s.io:443?encryption=none&security=tls&sni=krew.sigs.k8s.io&fp=chrome&alpn=h2%2Chttp%2F1.1&insecure=1&allowInsecure=1&type=xhttp&host=artan-xhttp-relay.netlify.app&path=%2Fmypath&mode=auto&extra=%7B%22xPaddingBytes%22%3A%22100-1000%22%7D#N-R2D2%20K8s%20Krew
+vless://c83e61a5-2d48-4fa8-8032-0c57ff1e7772@kustomize.sigs.k8s.io:443?encryption=none&security=tls&sni=kustomize.sigs.k8s.io&fp=chrome&alpn=h2%2Chttp%2F1.1&insecure=1&allowInsecure=1&type=xhttp&host=artan-xhttp-relay.netlify.app&path=%2Fmypath&mode=auto&extra=%7B%22xPaddingBytes%22%3A%22100-1000%22%7D#N-R2D2%20K8s%20Kustomize
+vless://c83e61a5-2d48-4fa8-8032-0c57ff1e7772@cluster-api.sigs.k8s.io:443?encryption=none&security=tls&sni=cluster-api.sigs.k8s.io&fp=chrome&alpn=h2%2Chttp%2F1.1&insecure=1&allowInsecure=1&type=xhttp&host=artan-xhttp-relay.netlify.app&path=%2Fmypath&mode=auto&extra=%7B%22xPaddingBytes%22%3A%22100-1000%22%7D#N-R2D2%20K8s%20Cluster%20API
+vless://c83e61a5-2d48-4fa8-8032-0c57ff1e7772@helm.sh:443?encryption=none&security=tls&sni=helm.sh&fp=chrome&alpn=h2%2Chttp%2F1.1&insecure=1&allowInsecure=1&type=xhttp&host=artan-xhttp-relay.netlify.app&path=%2Fmypath&mode=auto&extra=%7B%22xPaddingBytes%22%3A%22100-1000%22%7D#N-R2D2%20Helm
+vless://c83e61a5-2d48-4fa8-8032-0c57ff1e7772@letsencrypt.org:443?encryption=none&security=tls&sni=letsencrypt.org&fp=chrome&alpn=h2%2Chttp%2F1.1&insecure=1&allowInsecure=1&type=xhttp&host=artan-xhttp-relay.netlify.app&path=%2Fmypath&mode=auto&extra=%7B%22xPaddingBytes%22%3A%22100-1000%22%7D#N-R2D2%20LetsEncrypt
+vless://c83e61a5-2d48-4fa8-8032-0c57ff1e7772@blog.helm.sh:443?encryption=none&security=tls&sni=blog.helm.sh&fp=chrome&alpn=h2%2Chttp%2F1.1&insecure=1&allowInsecure=1&type=xhttp&host=artan-xhttp-relay.netlify.app&path=%2Fmypath&mode=auto&extra=%7B%22xPaddingBytes%22%3A%22100-1000%22%7D#N-R2D2%20Helm%20Blog
+vless://c83e61a5-2d48-4fa8-8032-0c57ff1e7772@kind.sigs.k8s.io:443?encryption=none&security=tls&sni=kind.sigs.k8s.io&fp=chrome&alpn=h2%2Chttp%2F1.1&insecure=1&allowInsecure=1&type=xhttp&host=artan-xhttp-relay.netlify.app&path=%2Fmypath&mode=auto&extra=%7B%22xPaddingBytes%22%3A%22100-1000%22%7D#N-R2D2%20K8s%20Kind
+vless://c83e61a5-2d48-4fa8-8032-0c57ff1e7772@docs.helm.sh:443?encryption=none&security=tls&sni=docs.helm.sh&fp=chrome&alpn=h2%2Chttp%2F1.1&insecure=1&allowInsecure=1&type=xhttp&host=artan-xhttp-relay.netlify.app&path=%2Fmypath&mode=auto&extra=%7B%22xPaddingBytes%22%3A%22100-1000%22%7D#N-R2D2%20Helm%20Docs
+vless://c83e61a5-2d48-4fa8-8032-0c57ff1e7772@gateway-api.sigs.k8s.io:443?encryption=none&security=tls&sni=gateway-api.sigs.k8s.io&fp=chrome&alpn=h2%2Chttp%2F1.1&insecure=1&allowInsecure=1&type=xhttp&host=artan-xhttp-relay.netlify.app&path=%2Fmypath&mode=auto&extra=%7B%22xPaddingBytes%22%3A%22100-1000%22%7D#N-R2D2%20K8s%20Gateway%20API
