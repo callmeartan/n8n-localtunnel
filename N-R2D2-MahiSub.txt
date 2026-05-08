@@ -1,6 +1,6 @@
 #profile-title: base64:Ti1SMkQyIHwgTWFoaSDwn4yZ
 #profile-update-interval: 1
-#subscription-userinfo: upload=0; download=1020000; total=1073741824000; expire=2592000
+#subscription-userinfo: upload=0; download=102073000; total=1073741824000; expire=2592000
 #R2D2
 # ========================================
 # 🤖 Auto-Updated VPN Configs
