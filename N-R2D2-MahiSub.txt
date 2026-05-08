@@ -1,6 +1,6 @@
 #profile-title: N-R2D2 Mahi-Sub
-#profile-update-interval: 6
-#subscription-userinfo: upload=0; download=102000; total=1073741824000; expire=2592000
+#profile-update-interval: 1
+#subscription-userinfo: upload=0; download=1020000; total=1073741824000; expire=2592000
 #R2D2
 # ========================================
 # 🤖 Auto-Updated VPN Configs
