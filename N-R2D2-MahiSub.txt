@@ -1,4 +1,4 @@
-#profile-title: N-R2D2 Mahi🌙
+#profile-title: N-R2D2 Mahi
 #profile-update-interval: 1
 #subscription-userinfo: upload=0; download=1020000; total=1073741824000; expire=2592000
 #R2D2
